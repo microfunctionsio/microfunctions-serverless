@@ -17,6 +17,7 @@ export class KubelessDeploy {
 
   constructor(serverless: Serverless, kubeConfig: string, options?: any) {
     this.serverless = serverless;
+    this.serverless.provider.servicePort = 80
     this.serverless.cli = {
       log: console.log
     }
@@ -49,11 +50,6 @@ export class KubelessDeploy {
 
   getFileContent(zipPkg, relativePath) {
     return this.loadZip(zipPkg).then(
-      (zip) => zip.file(relativePath).async('string')
-    );
-  }
-  getFileContentbis(zipFile, relativePath) {
-    return this.loadZip(fs.readFileSync(zipFile)).then(
       (zip) => zip.file(relativePath).async('string')
     );
   }
@@ -105,8 +101,7 @@ export class KubelessDeploy {
           this.checkSize(pkg);
 
           if (description.handler) {
-            const depFile = 'package.json';
-
+            const depFile = 'requirements';
             (new KubelessDeployStrategy(this.serverless)).factory().deploy(description, pkg)
               .catch(reject)
               .then(deployOptions => {
@@ -115,7 +110,6 @@ export class KubelessDeploy {
                     // No requirements found
                   })
                   .then((requirementsContent) => {
-
                     populatedFunctions.push(_.assign({}, description, deployOptions, {
                       id: name,
                       deps: requirementsContent,
@@ -163,7 +157,6 @@ export class KubelessDeploy {
         timeout: this.serverless.provider.timeout,
         environment: this.serverless.provider.environment,
         replicas: this.serverless.provider.replicas,
-
       },
       this.kubeConfig,
     ));

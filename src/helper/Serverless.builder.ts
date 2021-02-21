@@ -44,8 +44,24 @@ export class ServerlessBuilder {
     this.serverless.runtime = runtime;
     return this;
   }
+  setTrigger(trigger: string) {
+    this.serverless.trigger = trigger;
+    return this;
+  }
+  setCrontab(crontab: string) {
+    this.serverless.crontab = crontab;
+    return this;
+  }
   setMemory(memory: string) {
     this.serverless.memory = memory;
+    return this;
+  }
+  setAllocated(allocated: boolean) {
+    this.serverless.allocated = allocated;
+    return this;
+  }
+  setCpu(cpu: string) {
+    this.serverless.cpu = cpu;
     return this;
   }
   setReplicas(replicas: number) {

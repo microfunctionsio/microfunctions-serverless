@@ -15,7 +15,11 @@ export class Serverless {
   dependencies: any;
   executedName: string;
   runtime: string;
+  trigger: string;
+  crontab: string;
+  allocated: boolean;
   memory: string;
+  cpu: string;
   replicas: number;
   environments: Environments[];
   kubeConfig: string;

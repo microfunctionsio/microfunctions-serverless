@@ -14,43 +14,7 @@ RUN yarn build
 
 FROM node:12.3-alpine
 
-RUN  npm install -g serverless@1.74.1
-
-RUN serverless --version
-
 COPY --from=build /usr/src/app/dist ./dist
 COPY --from=build /usr/src/app/node_modules ./node_modules
-RUN apk add yarn git
-
-WORKDIR /serverless
-
-COPY ./templates/serverless/package.json .
-
-RUN npm install
-
-RUN ls
-
-WORKDIR /templates
-
-COPY ./templates/nodejs/serverless.yml .
-
-COPY ./templates/nodejs/package.json .
-
-COPY ./templates/nodejs/webpack.config.js .
-
-COPY ./templates/serverless/config.yaml .
-
-ENV SERVERLESS_YML_PATH '/templates/serverless.yml'
-
-ENV CLUSTER_CONFIG_YML_PATH '/templates/config.yaml'
-
-ENV SERVERLESS_DEPENDENCIES_PATH '/templates/package.json'
-
-ENV SERVERLESS_WEBPACK_PATH '/templates/webpack.config.js'
-
-RUN mkdir /root/.kube
-RUN touch /root/.kube/config
-
-WORKDIR /
 
 CMD ["node", "dist/main"]

@@ -496,6 +496,7 @@ function deployHttpTrigger(name, namespace, path, options, kubconfig) {
 }
 
 function deployFunction(f, namespace, runtime, contentType, options, kubconfig) {
+
   const functionsApi = new Crd('apis/kubeless.io', 'v1beta1', namespace, 'functions', kubconfig);
   let environment = options.environment ? parseEnv(options.environment) : null;
   if (f.environment) {
@@ -664,8 +665,6 @@ export function deploy(functions, runtime, service, options, kubeConfig) {
           contentType: ('contentType' in description) ? description.contentType : 'text',
           labels: description.labels || {},
         });
-
-
         const ns = description.namespace || opts.namespace;
         if (description.handler) {
           deployFunction(description, ns, runtime, opts.contentType, opts, kubeConfig)

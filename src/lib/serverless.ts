@@ -16,6 +16,7 @@ export interface Serverless {
     timeout: string;
     environment: any;
     replicas: number;
+    servicePort:number;
   };
   service: string;
   package: {
