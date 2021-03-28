@@ -4,13 +4,14 @@ import {map, mergeMap} from 'rxjs/operators';
 
 import {Serverless} from '../classe/serverless';
 import {ServerlessBuilder} from '../helper/Serverless.builder';
-import {ServerlessDto} from '../dtos/serverlessDto';
+import {ServerlessDto} from '../dtos/serverless.dto';
 import {ConfigService} from '@nestjs/config';
 import {KubelessDeploy} from '../lib/deploy/kubelessDeploy';
 import {createZipWithFiles} from '../helper/generate-zip';
 import {JsTransform} from '../lib/transform/js.transform';
-import {IResponse} from '../interfaces/response';
-import {TriggerEnums} from "../enums/trigger.enums";
+import {IResponse,TriggersType} from '@microfunctions/common';
+
+
 
 @Injectable()
 export class ServerlessServices {
@@ -97,7 +98,7 @@ export class ServerlessServices {
 
     private getEvents(serverless: Serverless) {
         const events = [];
-        if (serverless.trigger === TriggerEnums.HTTPS.toString()) {
+        if (serverless.trigger === TriggersType.HTTPS.toString()) {
             events.push({
                 http: {
                     method: 'any',
@@ -105,7 +106,7 @@ export class ServerlessServices {
                     cors: false,
                 },
             })
-        } else if (serverless.trigger === TriggerEnums.CRONJOB.toString()) {
+        } else if (serverless.trigger === TriggersType.CRONJOB.toString()) {
             events.push({
                 schedule: serverless.crontab
             })
@@ -114,7 +115,7 @@ export class ServerlessServices {
     }
 
     private getServicePort(serverless: Serverless) {
-        if (serverless.trigger === TriggerEnums.SERVICES.toString()) {
+        if (serverless.trigger === TriggersType.SERVICES.toString()) {
             return 80;
         }
     }

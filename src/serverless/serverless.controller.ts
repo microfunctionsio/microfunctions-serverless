@@ -1,7 +1,7 @@
 import { Controller, UseFilters, UseInterceptors } from '@nestjs/common';
 import { ServerlessServices } from './serverless.services';
 import { MessagePattern, Payload } from '@nestjs/microservices';
-import { ServerlessDto } from '../dtos/serverlessDto';
+import { ServerlessDto } from '../dtos/serverless.dto';
 import {ErrorsMicroFunctionInterceptor} from "../interceptors/errors.interceptor";
 
 @Controller()

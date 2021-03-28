@@ -1,6 +1,6 @@
-import {IResponse} from '../interfaces/response';
-import {RpcException} from "@nestjs/microservices";
 
+import {RpcException} from "@nestjs/microservices";
+import {IResponse} from '@microfunctions/common';
 export class MicroFunctionException extends RpcException {
   status: number;
   constructor(private readonly response: IResponse) {
