@@ -1079,6 +1079,9 @@
     "@types/istanbul-reports" "^1.1.1"
     "@types/yargs" "^13.0.0"
 
+"@microfunctions/common@../microfunctions-common/":
+  version "0.1.1"
+
 "@nestjs/cli@^7.4.1":
   version "7.5.4"
   resolved "https://registry.yarnpkg.com/@nestjs/cli/-/cli-7.5.4.tgz#d4cdce388d7f6a32dabdf5bab909af23653f7740"
